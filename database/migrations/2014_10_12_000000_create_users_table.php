@@ -15,10 +15,21 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            
             $table->string('name');
+            $table->string('lastname');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone_home', 20);
+            $table->string('phone_mobile', 20);
+            $table->integer('personal_id');
+            $table->string('township', 100);
+            $table->string('address_1', 255);
+            $table->string('address_2', 255);
+            $table->string('hospital', 255);
+            $table->boolean('admin');
+            $table->enum('disease', ['covid-19', 'variante', 'viruela']);
+
             $table->rememberToken();
             $table->timestamps();
         });
