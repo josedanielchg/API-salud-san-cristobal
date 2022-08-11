@@ -19,8 +19,18 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'lastname',
         'email',
         'password',
+        'phone_home',
+        'phone_mobile',
+        'personal_id',
+        'address_1',
+        'address_2',
+        'hospital',
+        'admin',
+        'disease',
+        'township_id',
     ];
 
     /**
@@ -41,4 +51,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function notifications() {
+        return $this->hasMany(Notification::class);
+    }
+    
+    public function township() {
+        return $this->belongsTo(Township::class);
+    }
+
+    public function symptoms() {
+        return $this->belongsToMany(Symptom::class)->withTimestamps();
+    }
 }
