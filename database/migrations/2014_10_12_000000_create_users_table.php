@@ -22,16 +22,16 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('phone_home', 20);
             $table->string('phone_mobile', 20);
-            $table->integer('personal_id');
-            $table->string('township', 100);
+            $table->integer('personal_id')->unique();
             $table->string('address_1', 255);
-            $table->string('address_2', 255);
-            $table->string('hospital', 255);
-            $table->boolean('admin');
-            $table->enum('disease', ['covid-19', 'variante', 'viruela']);
+            $table->string('address_2', 255)->nullable();
+            $table->string('hospital', 255)->nullable();
+            $table->boolean('admin')->default(0);
+            $table->enum('disease', ['covid-19', 'variante', 'viruela'])->nullable();
 
             $table->rememberToken();
             $table->timestamps();
+
         });
     }
 

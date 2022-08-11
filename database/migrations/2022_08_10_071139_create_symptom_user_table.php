@@ -18,6 +18,7 @@ class CreateSymptomUserTable extends Migration
             $table->unsignedBigInteger('symptom_id');
             $table->timestamps();
 
+
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('symptom_id')->references('id')->on('symptoms');
         });
