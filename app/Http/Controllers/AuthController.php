@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Township;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -15,8 +12,9 @@ class AuthController extends Controller
     /**
      * Register an user in db
      */
-    public function register(Request $request) {
-
+    public function register(Request $request)
+    {
+        //Validation
         $fields = $request->validate([
             'name' => 'required|string',
             'lastname' => 'required|string',
@@ -52,21 +50,21 @@ class AuthController extends Controller
             'township_id' => $fields['township_id']
         ]);
 
-        $token = $user->createToken('myapptoken')->plainTextToken;
-
         $response = [
-            'user' => $user,
-            'token' => $token
+            'message' => 'Usuario registrado exitosamente',
+            'data' => $user,
         ];
 
         return response($response, 201);
     }
 
 
+
     /**
      * Login user and returns token
      */
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $fields = $request->validate([
             'email' => 'required|string',
             'password' => 'required|string',
@@ -75,19 +73,18 @@ class AuthController extends Controller
         // Check email
         $user = User::where('email', $fields['email'])->first();
 
-
-        //Check password
         if(!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
-                'message' => 'Bad Credentials'
+                'message' => 'Error. Usuario y/o contraseña equivocados'
             ], 401);
         }
 
         $token = $user->createToken('myapptoken')->plainTextToken;
 
         $response = [
-            'user' => $user,
-            'token' => $token
+            'message' => 'Usuario autenticado exitosamente',
+            'token' => $token,
+            'data' => $user
         ];
 
         return response($response, 201);
@@ -98,11 +95,12 @@ class AuthController extends Controller
     /**
      * Remove access tokens to auth user
      */
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         auth()->user()->tokens()->delete();
 
         return [
-            'message' => 'Logged out'
+            'message' => 'Sesión cerrada'
         ];
     }
 }
