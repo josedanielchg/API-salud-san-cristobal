@@ -16,7 +16,11 @@ class AddTownshipIdFieldToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('township_id');
 
-            $table->foreign('township_id')->references('id')->on('townships');
+            $table->foreign('township_id')
+                ->references('id')
+                ->on('townships')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

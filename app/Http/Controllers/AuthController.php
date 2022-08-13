@@ -52,7 +52,9 @@ class AuthController extends Controller
 
         $response = [
             'message' => 'Usuario registrado exitosamente',
-            'data' => $user,
+            'data' => [
+                'user' => $user,
+            ]
         ];
 
         return response($response, 201);
@@ -84,7 +86,12 @@ class AuthController extends Controller
         $response = [
             'message' => 'Usuario autenticado exitosamente',
             'token' => $token,
-            'data' => $user
+            'data' => [
+                User::with([
+                    'notifications' => function($query){ $query->orderBy('seen', 'DESC'); },
+                    'symptoms'
+                ])->where('id', $user->id)->first()
+            ]
         ];
 
         return response($response, 201);

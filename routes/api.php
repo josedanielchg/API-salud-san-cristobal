@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -21,17 +23,15 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::group(['middleware' => ['auth:sanctum']], function() {
 
     Route::post('/logout', [AuthController::class, 'logout']);
-
+    
     Route::resource('/user', UserController::class)->only('update');
+    Route::get('/data', [UserController::class, 'data']);
+    
+    Route::post('/notification', [NotificationController::class, 'store']);
+    Route::post('/notification-seen/{id}', [NotificationController::class, 'notification_seen']);
 
-    Route::get('/news', function(){
-        return News::all();
-    });
+    Route::resource('news', NewsController::class);
 });

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Symptom;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -13,20 +15,29 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function data()
     {
-        //
-    }
+        $users = User::all();
+        $symptoms = Symptom::all();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $users_by_symptoms = array();
+
+        foreach ($symptoms as $symptom) {
+            $users_by_symptoms[$symptom->name] = $symptom->users()->count();
+        }
+
+        return response([
+            'data' => [
+                'by_disease' => [
+                    'total' => $users->count(),
+                    'covid-19' => $users->where('disease', 'covid-19')->count(),
+                    'variante' => $users->where('disease', 'variante')->count(),
+                    'viruela' => $users->where('disease', 'viruela')->count(),
+                ],
+                'by_symptoms' => $users_by_symptoms
+            ]
+        ], 200);
+        
     }
 
     /**
@@ -57,7 +68,7 @@ class UserController extends Controller
                 'email',
                 Rule::unique('users')->ignore($user->id)          
             ],
-            'password' => 'string|confirmed',
+            'password' => 'string',
             'phone_home' => 'string',
             'phone_mobile' => 'string',
             'personal_id' => [
@@ -76,6 +87,11 @@ class UserController extends Controller
             'symptoms' => 'array|exists:App\Models\Symptom,id'
         ]);
 
+        //Check if between request data is defined a new password
+        if( !is_null($fields['password']) ){
+            $fields['password'] = bcrypt($fields['password']);
+        }
+
         $user->update($fields);
 
         $user->symptoms()->sync($fields['symptoms']);
@@ -83,8 +99,10 @@ class UserController extends Controller
         $response = [
             'message' => 'Usuario actualizado exitosamente',
             'data' => [
-                'user' => $user,
-                'symptoms' => $user->symptoms
+                User::with([
+                    'notifications' => function($query){ $query->orderBy('seen', 'DESC'); },
+                    'symptoms'
+                ])->where('id', $user->id)->first()
             ]
         ];
 
