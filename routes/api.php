@@ -22,6 +22,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::post('/test', function(){
+    return "HOLAAAAAAa";
+});
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/townships', [TownshipController::class, 'index']);
