@@ -18,6 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->text('body');
+            $table->string('abstract');
             $table->boolean('seen');
             $table->timestamps();
 

@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/data', [UserController::class, 'data']);
     
     Route::post('/notification', [NotificationController::class, 'store']);
+    Route::get('/notifications/{user_id}', [NotificationController::class, 'notifications']);
     Route::post('/notification-seen/{id}', [NotificationController::class, 'notification_seen']);
     
 

@@ -17,10 +17,13 @@ class NotificationFactory extends Factory
 
     public function definition()
     {
+        $body = $this->faker->text($maxNbChars = 1000);
+
         return [
             'user_id' => User::all()->random()->id,
             'title' => $this->faker->sentence(4, true),
-            'body' => $this->faker->text($maxNbChars = 1000),
+            'abstract' => substr($body, 0, 100) . "...",
+            'body' => $body,
             'seen' => $this->faker->numberBetween(0,1),
         ];
     }

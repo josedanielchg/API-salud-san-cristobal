@@ -22,10 +22,13 @@ class NotificationController extends Controller
             'body' => 'required|string',
         ]);
 
+        $abstract = substr($fields['body'], 0, 100) . "...";
+
         $notification = Notification::create([
             'user_id' => $fields['user_id'],
             'title' => $fields['title'],
             'body' => $fields['body'],
+            'abstract' => $abstract,
             'seen' => 0 
         ]);
 
@@ -35,6 +38,19 @@ class NotificationController extends Controller
         ];
 
         return response($response, 201);
+    }
+
+
+    public function notifications($user_id)
+    {
+        $notifications = Notification::where('user_id', $user_id)->orderBy('seen', 'DESC')->get();
+
+        $response = [
+            'message' => "Notificaciones - Usuario: $user_id",
+            'data' =>  $notifications
+        ];
+
+        return response($response, 200);
     }
 
     

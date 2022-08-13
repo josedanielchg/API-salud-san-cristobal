@@ -14,6 +14,7 @@ class Notification extends Model
         'title',
         'body',
         'seen',
+        'abstract'
     ];
 
     public function user() {
