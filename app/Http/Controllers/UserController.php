@@ -99,7 +99,7 @@ class UserController extends Controller
             'address_2' => 'string',
             'hospital' => 'nullable|string',
             'admin' => 'nullable|boolean',
-            'under_age' => 'nullable|optional|boolean',
+            'under_age' => 'nullable|boolean',
             'disease' => [
                 'nullable',
                 Rule::in(["covid-19", "variante", "viruela"])
