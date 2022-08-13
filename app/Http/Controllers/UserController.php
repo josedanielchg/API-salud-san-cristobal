@@ -116,7 +116,7 @@ class UserController extends Controller
         }
 
         //Check if between request data is defined a new password
-        if( !is_null($fields['password']) ){
+        if( isset($fields['password']) ){
             $fields['password'] = bcrypt($fields['password']);
         }
 
