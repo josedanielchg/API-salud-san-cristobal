@@ -91,6 +91,13 @@ class NewsController extends Controller
 
         $new = News::find($id);
 
+        // Check if new exists user
+        if(!$new) {
+            return response([
+                'message' => 'Error. Noticia no encontrada',
+            ], 400);
+        }
+
         $abstract = substr($fields['body'], 0, 100) . "...";
 
         $new->update([

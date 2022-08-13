@@ -30,6 +30,7 @@ class UserFactory extends Factory
             'hospital' => $this->faker->optional()->sentence(3, true),
             'admin' => $this->faker->numberBetween(0,1),
             'disease' => $this->faker->optional()->randomElement(['covid-19', 'variante', 'viruela'], 1),
+            'under_age' => $this->faker->numberBetween(0,1),
             'township_id' => Township::all()->random()->id,
             'remember_token' => Str::random(10),
         ];

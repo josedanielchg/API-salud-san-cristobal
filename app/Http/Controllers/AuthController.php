@@ -27,6 +27,7 @@ class AuthController extends Controller
             'address_2' => 'required|string',
             'hospital' => 'nullable|string',
             'admin' => 'nullable|boolean',
+            'under_age' => 'nullable|optional|boolean',
             'disease' => [
                 'nullable',
                 Rule::in(["covid-19", "variante", "viruela"])
@@ -47,6 +48,7 @@ class AuthController extends Controller
             'hospital' => null,
             'admin' => $fields['admin'],
             'disease' => $fields['disease'],
+            'under_age' => $fields['under_age'],
             'township_id' => $fields['township_id']
         ]);
 

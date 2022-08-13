@@ -30,7 +30,8 @@ class User extends Authenticatable
         'hospital',
         'admin',
         'disease',
-        'township_id',
+        'under_age',
+        'township_id'
     ];
 
     /**
@@ -51,7 +52,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
 
     public function notifications() {
         return $this->hasMany(Notification::class);

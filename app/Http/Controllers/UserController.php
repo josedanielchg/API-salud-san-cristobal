@@ -79,6 +79,7 @@ class UserController extends Controller
             'address_2' => 'string',
             'hospital' => 'nullable|string',
             'admin' => 'nullable|boolean',
+            'under_age' => 'nullable|optional|boolean',
             'disease' => [
                 'nullable',
                 Rule::in(["covid-19", "variante", "viruela"])
@@ -86,6 +87,13 @@ class UserController extends Controller
             'township_id' => 'exists:App\Models\Township,id',
             'symptoms' => 'array|exists:App\Models\Symptom,id'
         ]);
+
+        // Check if user exists user
+        if(!$user) {
+            return response([
+                'message' => 'Error. Usuario no encontrado',
+            ], 400);
+        }
 
         //Check if between request data is defined a new password
         if( !is_null($fields['password']) ){

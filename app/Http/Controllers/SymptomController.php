@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Symptom;
 use Illuminate\Http\Request;
 
 class SymptomController extends Controller
@@ -13,7 +14,14 @@ class SymptomController extends Controller
      */
     public function index()
     {
-        //
+        $symptom =  Symptom::orderBy('name')->get();
+
+        $response = [
+            'message' => 'Sintomas',
+            'data' =>  $symptom
+        ];
+
+        return response($response, 200);
     }
 
     /**
@@ -24,7 +32,23 @@ class SymptomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validation
+        $fields = $request->validate([
+            'name' => 'required|string|unique:symptoms,name',
+        ]);
+
+        $symptom = Symptom::create([
+            'name' => $fields['name'],
+        ]);
+
+        $response = [
+            'message' => 'Noticia creada exitosamente',
+            'data' => [
+                'symptom' => $symptom,
+            ]
+        ];
+
+        return response($response, 201);
     }
 
     /**
@@ -35,7 +59,14 @@ class SymptomController extends Controller
      */
     public function show($id)
     {
-        //
+        $symptom =  Symptom::find($id);
+
+        $response = [
+            'message' => "Noticia - $id",
+            'data' =>  $symptom
+        ];
+
+        return response($response, 200);
     }
 
     /**
@@ -47,7 +78,32 @@ class SymptomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Validation
+        $fields = $request->validate([
+            'name' => 'required|string',
+        ]);
+
+        $symptom = Symptom::find($id);
+
+        // Check if symptom exists user
+        if(!$symptom) {
+            return response([
+                'message' => 'Error. Sintoma no encontrada',
+            ], 400);
+        }
+
+        $symptom->update([
+            'name' => $fields['name'],
+        ]);
+
+        $response = [
+            'message' => 'Sintoma creado exitosamente',
+            'data' => [
+                'symptom' => $symptom,
+            ]
+        ];
+
+        return response($response, 201);
     }
 
     /**
@@ -58,6 +114,13 @@ class SymptomController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $symptom = Symptom::find($id);
+        $symptom->delete();
+
+        $response = [
+            'message' => 'Noticia eliminada exitosamente',
+        ];
+
+        return response($response, 201);
     }
 }

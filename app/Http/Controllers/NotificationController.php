@@ -42,6 +42,13 @@ class NotificationController extends Controller
     {
         $notification = Notification::find($id);
 
+        // Check if new exists user
+        if(!$notification) {
+            return response([
+                'message' => 'Error. Notificacion no encontrada',
+            ], 400);
+        }
+
         $notification->update([
             'seen' => 1
         ]);
