@@ -88,12 +88,11 @@ class AuthController extends Controller
         $response = [
             'message' => 'Usuario autenticado exitosamente',
             'token' => $token,
-            'data' => [
+            'data' =>
                 User::with([
                     'notifications' => function($query){ $query->orderBy('seen', 'DESC'); },
                     'symptoms'
                 ])->where('id', $user->id)->first()
-            ]
         ];
 
         return response($response, 201);
