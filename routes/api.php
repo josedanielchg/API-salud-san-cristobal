@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SymptomController;
+use App\Http\Controllers\TownshipController;
 use App\Http\Controllers\UserController;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::get('/townships', [TownshipController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
 
@@ -33,6 +35,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     
     Route::post('/notification', [NotificationController::class, 'store']);
     Route::post('/notification-seen/{id}', [NotificationController::class, 'notification_seen']);
+    
 
     Route::resource('/news', NewsController::class);
     Route::resource('/symptom', SymptomController::class);
