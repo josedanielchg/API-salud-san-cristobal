@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SymptomController;
 use App\Http\Controllers\UserController;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -27,11 +28,12 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     Route::post('/logout', [AuthController::class, 'logout']);
     
-    Route::resource('/user', UserController::class)->only('update');
+    Route::resource('/user', UserController::class)->only('index', 'update');
     Route::get('/data', [UserController::class, 'data']);
     
     Route::post('/notification', [NotificationController::class, 'store']);
     Route::post('/notification-seen/{id}', [NotificationController::class, 'notification_seen']);
 
-    Route::resource('news', NewsController::class);
+    Route::resource('/news', NewsController::class);
+    Route::resource('/symptom', SymptomController::class);
 });

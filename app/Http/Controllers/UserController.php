@@ -15,6 +15,25 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index()
+    {
+        $users =  User::orderBy('name')->get();
+
+        $response = [
+            'message' => 'Usuarios',
+            'data' =>  $users
+        ];
+
+        return response($response, 200);
+    }
+
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function data()
     {
         $users = User::all();
@@ -39,6 +58,7 @@ class UserController extends Controller
         ], 200);
         
     }
+
 
     /**
      * Display the specified resource.

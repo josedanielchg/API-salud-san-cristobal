@@ -42,7 +42,7 @@ class SymptomController extends Controller
         ]);
 
         $response = [
-            'message' => 'Noticia creada exitosamente',
+            'message' => 'Sintoma creada exitosamente',
             'data' => [
                 'symptom' => $symptom,
             ]
@@ -62,7 +62,7 @@ class SymptomController extends Controller
         $symptom =  Symptom::find($id);
 
         $response = [
-            'message' => "Noticia - $id",
+            'message' => "Sintoma - $id",
             'data' =>  $symptom
         ];
 
@@ -118,7 +118,7 @@ class SymptomController extends Controller
         $symptom->delete();
 
         $response = [
-            'message' => 'Noticia eliminada exitosamente',
+            'message' => 'Sintoma eliminada exitosamente',
         ];
 
         return response($response, 201);
