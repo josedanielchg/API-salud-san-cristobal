@@ -35,22 +35,7 @@ class AuthController extends Controller
             'township_id' => 'exists:App\Models\Township,id'
         ]);
 
-        $user = User::create([
-            'name' => $fields['name'],
-            'lastname' => $fields['lastname'],
-            'email' => $fields['email'],
-            'password' => bcrypt($fields['password']),
-            'phone_home' => $fields['phone_home'],
-            'phone_mobile' => $fields['phone_mobile'],
-            'personal_id' => $fields['personal_id'],
-            'address_1' => $fields['address_1'],
-            'address_2' => $fields['address_2'],
-            'hospital' => null,
-            'admin' => $fields['admin'],
-            'disease' => $fields['disease'],
-            'under_age' => $fields['under_age'],
-            'township_id' => $fields['township_id']
-        ]);
+        $user = User::create($fields);
 
         $response = [
             'message' => 'Usuario registrado exitosamente',
