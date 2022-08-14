@@ -20,6 +20,7 @@ class UserController extends Controller
         $users =  User::orderBy('name')->get();
 
         $response = [
+            'ok' => true,
             'message' => 'Usuarios',
             'data' =>  $users
         ];
@@ -49,6 +50,7 @@ class UserController extends Controller
         }
 
         return response([
+            'ok' => true,
             'data' => [
                 'by_disease' => [
                     'total' => $users->count(),
@@ -130,6 +132,7 @@ class UserController extends Controller
         $response = [
             'message' => 'Usuario actualizado exitosamente',
             'data' => [
+                'ok' => true,
                 User::with([
                     'notifications' => function($query){ $query->orderBy('seen', 'DESC'); },
                     'symptoms'

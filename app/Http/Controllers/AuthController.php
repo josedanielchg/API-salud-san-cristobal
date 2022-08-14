@@ -40,6 +40,7 @@ class AuthController extends Controller
         $user = User::create($fields);
 
         $response = [
+            'ok' => true,
             'message' => 'Usuario registrado exitosamente',
             'data' => [
                 'user' => $user,
@@ -73,6 +74,7 @@ class AuthController extends Controller
         $token = $user->createToken('myapptoken')->plainTextToken;
 
         $response = [
+            'ok' => true,
             'message' => 'Usuario autenticado exitosamente',
             'token' => $token,
             'data' =>
@@ -95,6 +97,7 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
 
         return [
+            'ok' => true,
             'message' => 'Sesión cerrada'
         ];
     }
