@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
@@ -17,15 +18,17 @@ class NotificationController extends Controller
     {
         //Validation
         $fields = $request->validate([
-            'user_id' => 'required|exists:App\Models\User,id',
+            'email' => 'required|exists:App\Models\User,email|email',
             'title' => 'required|string',
             'body' => 'required|string',
         ]);
 
+        $user = User::where('email', $fields['email'])->first();
+
         $abstract = substr($fields['body'], 0, 100) . "...";
 
         $notification = Notification::create([
-            'user_id' => $fields['user_id'],
+            'user_id' => $user->id,
             'title' => $fields['title'],
             'body' => $fields['body'],
             'abstract' => $abstract,
