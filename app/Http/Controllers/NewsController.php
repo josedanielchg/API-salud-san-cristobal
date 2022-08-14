@@ -17,6 +17,7 @@ class NewsController extends Controller
         $news =  News::orderBy('created_at', 'DESC')->get();
 
         $response = [
+            'ok' => true,
             'message' => 'Noticias',
             'data' =>  $news
         ];
@@ -47,6 +48,7 @@ class NewsController extends Controller
         ]);
 
         $response = [
+            'ok' => true,
             'message' => 'Noticia creada exitosamente',
             'data' => [
                 'new' => $new,
@@ -67,6 +69,7 @@ class NewsController extends Controller
         $new =  News::find($id);
 
         $response = [
+            'ok' => true,
             'message' => "Noticia - $id",
             'data' =>  $new
         ];
@@ -107,6 +110,7 @@ class NewsController extends Controller
         ]);
 
         $response = [
+            'ok' => true,
             'message' => 'Noticia creada exitosamente',
             'data' => [
                 'new' => $new,
@@ -128,6 +132,7 @@ class NewsController extends Controller
         $new->delete();
 
         $response = [
+            'ok' => true,
             'message' => 'Noticia eliminada exitosamente',
         ];
 

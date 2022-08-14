@@ -36,6 +36,7 @@ class NotificationController extends Controller
         ]);
 
         $response = [
+            'ok' => true,
             'message' => 'Notificacion creada exitosamente',
             'data' => $notification,
         ];
@@ -49,6 +50,7 @@ class NotificationController extends Controller
         $notifications = Notification::where('user_id', $user_id)->orderBy('seen')->get();
 
         $response = [
+            'ok' => true,
             'message' => "Notificaciones - Usuario: $user_id",
             'data' =>  $notifications
         ];
@@ -73,6 +75,7 @@ class NotificationController extends Controller
         ]);
 
         $response = [
+            'ok' => true,
             'message' => 'Notificacion actualizada exitosamente',
             'data' => $notification,
         ];

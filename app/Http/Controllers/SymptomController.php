@@ -17,6 +17,7 @@ class SymptomController extends Controller
         $symptom =  Symptom::orderBy('name')->get();
 
         $response = [
+            'ok' => true,
             'message' => 'Sintomas',
             'data' =>  $symptom
         ];
@@ -42,6 +43,7 @@ class SymptomController extends Controller
         ]);
 
         $response = [
+            'ok' => true,
             'message' => 'Sintoma creada exitosamente',
             'data' => [
                 'symptom' => $symptom,
@@ -62,6 +64,7 @@ class SymptomController extends Controller
         $symptom =  Symptom::find($id);
 
         $response = [
+            'ok' => true,
             'message' => "Sintoma - $id",
             'data' =>  $symptom
         ];
@@ -97,6 +100,7 @@ class SymptomController extends Controller
         ]);
 
         $response = [
+            'ok' => true,
             'message' => 'Sintoma creado exitosamente',
             'data' => [
                 'symptom' => $symptom,
@@ -118,6 +122,7 @@ class SymptomController extends Controller
         $symptom->delete();
 
         $response = [
+            'ok' => true,
             'message' => 'Sintoma eliminada exitosamente',
         ];
 

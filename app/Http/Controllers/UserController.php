@@ -130,9 +130,9 @@ class UserController extends Controller
         $user->symptoms()->sync($fields['symptoms']);
 
         $response = [
+            'ok' => true,
             'message' => 'Usuario actualizado exitosamente',
             'data' => [
-                'ok' => true,
                 User::with([
                     'notifications' => function($query){ $query->orderBy('seen', 'DESC'); },
                     'symptoms'

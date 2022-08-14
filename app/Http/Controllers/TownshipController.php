@@ -17,6 +17,7 @@ class TownshipController extends Controller
         $township =  Township::orderBy('name')->get();
 
         $response = [
+            'ok' => true,
             'message' => 'Municipios',
             'data' =>  $township
         ];
