@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'address_1' => $this->faker->streetAddress(),
             'address_2' => $this->faker->secondaryAddress(),
             'hospital' => $this->faker->optional()->sentence(3, true),
-            'admin' => $this->faker->numberBetween(0,1),
+            'admin' => 0,
             'disease' => $this->faker->optional()->randomElement(['covid19', 'variante', 'viruela'], 1),
             'under_age' => $this->faker->numberBetween(0,1),
             'township_id' => Township::all()->random()->id,

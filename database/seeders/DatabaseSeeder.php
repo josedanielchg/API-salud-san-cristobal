@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
         News::factory(50)->create();
         User::factory(50)->create();
 
-        Notification::factory(500)->create();
+        Notification::factory(50)->create();
 
         $this->call(SymptomSeeder::class);
     }
