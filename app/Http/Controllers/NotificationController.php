@@ -46,7 +46,7 @@ class NotificationController extends Controller
 
     public function notifications($user_id)
     {
-        $notifications = Notification::where('user_id', $user_id)->orderBy('seen', 'DESC')->get();
+        $notifications = Notification::where('user_id', $user_id)->orderBy('seen')->get();
 
         $response = [
             'message' => "Notificaciones - Usuario: $user_id",
