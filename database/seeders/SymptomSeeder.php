@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Symptom;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
@@ -52,14 +53,22 @@ class SymptomSeeder extends Seeder
 
         $symptoms = Symptom::all();
 
-        foreach ($symptoms as $symptom) {
-            $symptom->users()->attach([
-                rand(1, 12),
-                rand(13, 24),
-                rand(25, 36),
-                rand(37, 50),
-            ]);
-        }
 
+        foreach ($symptoms as $symptom) {
+            $random = rand(1, 30);
+            $users = [];
+            $repeated = false;
+            
+            for($i=0; $i<$random; $i++) {
+                $user_id = User::all()->random()->id;
+
+                while($repeated) {
+                    $user_id = User::all()->random()->id;
+                    $repeated = in_array($user_id, $users);
+                }
+                array_push($users, $user_id);
+                $symptom->users()->attach($user_id);
+            }
+        }
     }
 }
