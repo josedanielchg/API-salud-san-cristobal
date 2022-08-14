@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('hospital', 255)->nullable();
             $table->boolean('admin')->default(0);
             $table->boolean('under_age')->default(0);
-            $table->enum('disease', ['covid-19', 'variante', 'viruela'])->nullable();
+            $table->enum('disease', ['covid19', 'variante', 'viruela'])->nullable();
 
             $table->rememberToken();
             $table->timestamps();

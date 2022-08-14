@@ -30,7 +30,7 @@ class AuthController extends Controller
             'under_age' => 'nullable|boolean',
             'disease' => [
                 'nullable',
-                Rule::in(["covid-19", "variante", "viruela"])
+                Rule::in(["covid19", "variante", "viruela"])
             ],
             'township_id' => 'exists:App\Models\Township,id'
         ]);

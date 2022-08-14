@@ -49,7 +49,7 @@ class UserController extends Controller
             'data' => [
                 'by_disease' => [
                     'total' => $users->count(),
-                    'covid-19' => $users->where('disease', 'covid-19')->count(),
+                    'covid19' => $users->where('disease', 'covid19')->count(),
                     'variante' => $users->where('disease', 'variante')->count(),
                     'viruela' => $users->where('disease', 'viruela')->count(),
                 ],
@@ -102,7 +102,7 @@ class UserController extends Controller
             'under_age' => 'nullable|boolean',
             'disease' => [
                 'nullable',
-                Rule::in(["covid-19", "variante", "viruela"])
+                Rule::in(["covid19", "variante", "viruela"])
             ],
             'township_id' => 'exists:App\Models\Township,id',
             'symptoms' => 'array|exists:App\Models\Symptom,id'
