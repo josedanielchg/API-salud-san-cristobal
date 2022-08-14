@@ -42,7 +42,10 @@ class UserController extends Controller
         $users_by_symptoms = array();
 
         foreach ($symptoms as $symptom) {
-            $users_by_symptoms[$symptom->name] = $symptom->users()->count();
+            array_push($users_by_symptoms, [
+                "name" => $symptom->name,
+                "count" => $symptom->users()->count() 
+            ]);
         }
 
         return response([
