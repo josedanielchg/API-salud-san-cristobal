@@ -35,6 +35,8 @@ class AuthController extends Controller
             'township_id' => 'exists:App\Models\Township,id'
         ]);
 
+        $fields['password'] = bcrypt($fields['password']);
+
         $user = User::create($fields);
 
         $response = [
